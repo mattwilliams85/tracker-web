@@ -1,9 +1,7 @@
 import React from "react";
-import uuid from "uuid4";
 import TextField from "material-ui/TextField";
 import FlatButton from "material-ui/FlatButton";
-import PieChart from "./PieChart";
-
+import uuid from "uuid4";
 
 class Project extends React.Component {
   constructor(props) {
@@ -87,6 +85,7 @@ class Project extends React.Component {
                   />
                   : null
                 }
+
               </div>)
         )}
       </div>
@@ -95,11 +94,14 @@ class Project extends React.Component {
 
   render() {
     const { todo, inProgress, completed } = this.state;
-    const dataset = [todo, inProgress, completed];
 
     return (
       <div>
-        <PieChart dataset={dataset} />
+        <p>
+          <span className="to-dos">To Do: {todo}, </span>
+          <span className="in-progress">In Progress: {inProgress}, </span>
+          <span className="completed">Completed: {completed}</span>
+        </p>
         <h3>Create New Task</h3>
         <TextField
           value={this.state.name}
