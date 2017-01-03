@@ -1,13 +1,15 @@
 import React from "react";
-import Paper from "material-ui/Paper";
 import { Pie } from "react-chartjs-2";
 
 class PieChart extends React.Component {
   render() {
     const dataset = this.props.dataset;
+    const options = {
+      tooltips: {
+        enabled: false,
+      },
+    };
     const chartData = {};
-    const colors = ["#346499", "#008569", "#8DB501"];
-    const pies = ["todo", "in-progress", "completed"];
 
 
     function ratio(set, data) {
@@ -22,26 +24,28 @@ class PieChart extends React.Component {
         datasets: [{
           data: [dataset[i], ratio(dataset, dataset[i])],
           backgroundColor: [
-            colors[i],
-            "#ccc",
+            "#FF6384",
+            "#36A2EB",
           ],
         }],
       };
     }
 
     return (
-      <div className="pie-chart">
-        <div className="pie-wrap">
-          { pies.map((key, i) => (
-            <Paper id={key} zDepth={2}>
-              <h3>
-                <span className={key}>{dataset[i]} </span>
-                &nbsp;{key}
-              </h3>
-              <Pie data={chartData[i]} />
-            </Paper>
-          ))}
+      <div style={{ width: "250px", display: "flex", flexDirection: "row" }}>
+        <div id="todo">
+          <h3>{dataset[0]} Todo</h3>
+          <Pie data={chartData[0]} options={options} />
+        </div>
 
+        <div id="in-progress">
+          <h3>{dataset[1]} In Progress</h3>
+          <Pie data={chartData[1]} options={options} />
+        </div>
+
+        <div id="completed">
+          <h3>{dataset[2]} Completed</h3>
+          <Pie data={chartData[2]} options={options} />
         </div>
       </div>
     );

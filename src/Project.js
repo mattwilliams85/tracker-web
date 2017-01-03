@@ -1,8 +1,7 @@
 import React from "react";
 import uuid from "uuid4";
 import TextField from "material-ui/TextField";
-import RaisedButton from "material-ui/RaisedButton";
-import Divider from "material-ui/Divider";
+import FlatButton from "material-ui/FlatButton";
 import PieChart from "./PieChart";
 
 
@@ -29,8 +28,7 @@ class Project extends React.Component {
     this.setState({ [name]: value });
   }
 
-  addTask(event) {
-    event.preventDefault();
+  addTask() {
     const list = [...this.state.list];
 
     list.push({
@@ -73,20 +71,15 @@ class Project extends React.Component {
     const list = this.state.list;
     const btnText = ["Start", "Complete"];
     return (
-      <div className={`state-${state}`}>
+      <div>
         { list
             .filter(task => task.state === state)
             .map((task, index) => (
-              <div key={index} className="task">
-                <div className="text">
-                  <div>{task.name}</div>
-                  <div>{task.description}</div>
-                </div>
-                <div>
+              <div key={index}>
+                <div>{task.name}</div>
+                <div>{task.description}</div>
                 { btnText[state]
-                  ? <RaisedButton
-                    primary
-
+                  ? <FlatButton
                     className="increment"
                     label={btnText[state]}
                     onClick={() => this.incrementState(task)}
@@ -94,7 +87,6 @@ class Project extends React.Component {
                   />
                   : null
                 }
-                </div>
               </div>)
         )}
       </div>
@@ -106,54 +98,28 @@ class Project extends React.Component {
     const dataset = [todo, inProgress, completed];
 
     return (
-      <div className="container">
-
-        <h3>Sample Project Todo List</h3>
+      <div>
         <PieChart dataset={dataset} />
-        <br />
-
         <h3>Create New Task</h3>
-        <form
-          onSubmit={this.addTask}
-          className="create"
-        >
-          <TextField
-            value={this.state.name}
-            name="name"
-            hintText="Task Name"
-            onChange={this.onChange}
-          /><br />
-          <TextField
-            value={this.state.description}
-            name="description"
-            hintText="Task Description"
-            onChange={this.onChange}
-          /><br /><br />
-          <RaisedButton
-            label="Create"
-            type="submit"
-            primary
-          />
-        </form>
-        <br /><br />
-
-        <div>
-          <h3 className="todo">Todo Tasks</h3>
-          <Divider />
-          {this.filterList(0)}
-          <br />
-
-          <h3 className="in-progress">In Progress Tasks</h3>
-          <Divider />
-          {this.filterList(1)}
-          <br />
-
-          <h3 className="completed">Completed Tasks</h3>
-          <Divider />
-          {this.filterList(2)}
-          <br />
-        </div>
-
+        <TextField
+          value={this.state.name}
+          name="name"
+          hintText="Task Name"
+          onChange={this.onChange}
+        />
+        <TextField
+          value={this.state.description}
+          name="description"
+          hintText="Task Description"
+          onChange={this.onChange}
+        />
+        <FlatButton className="create" label="Create" onClick={this.addTask} />
+        <h3>To Do Tasks</h3>
+        {this.filterList(0)}
+        <h3>In Progress Tasks</h3>
+        {this.filterList(1)}
+        <h3>Completed Tasks</h3>
+        {this.filterList(2)}
       </div>
     );
   }

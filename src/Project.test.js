@@ -30,7 +30,7 @@ describe("Project", () => {
 
     expect(todoTask).to.deep.eql(list[0]);
 
-    createButton.simulate("submit", {
+    createButton.simulate("click", {
       preventDefault: () => {},
       target: {
         children: [{ innerHTML: "play smash brothers" }],
