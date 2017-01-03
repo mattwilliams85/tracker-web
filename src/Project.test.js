@@ -7,7 +7,6 @@ const list = [
   {
     state: "to-do",
     name: "play smash brothers",
-    description: "tournament style",
     id: "test-id",
   },
 ];
@@ -47,7 +46,6 @@ describe("Project", () => {
 
     expect(inProgressTask.state).to.equal("in-progress");
     expect(inProgressTask.name).to.equal("play smash brothers");
-    expect(inProgressTask.description).to.equal("tournament style");
     expect(inProgressTask.id).to.equal("test-id");
   });
 });
